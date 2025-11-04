@@ -1,0 +1,113 @@
+<nav class="fixed top-0 left-0 right-0 z-50 bg-dark border-b border-dark-border backdrop-blur-sm">
+    <div class="container mx-auto px-6 lg:px-12">
+        <div class="flex items-center justify-between py-8">
+            <!-- Logo/Name -->
+            <a href="/" class="text-xl font-bold tracking-tight text-white hover:text-indigo-400 transition-colors">
+                Quentin Givens
+            </a>
+
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex items-center gap-20">
+                <NavLink href="/" class="nav-link" Match="NavLinkMatch.All">
+                    Home
+                </NavLink>
+                <NavLink href="/about" class="nav-link">
+                    About
+                </NavLink>
+                <NavLink href="/contact" class="nav-link">
+                    Contact
+                </NavLink>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button @onclick="ToggleMobileMenu" class="md:hidden text-gray-300 hover:text-white transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    @if (!mobileMenuOpen)
+                    {
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    }
+                    else
+                    {
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    }
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        @if (mobileMenuOpen)
+        {
+            <div class="md:hidden border-t border-dark-border py-6">
+                <div class="flex flex-col gap-6">
+                    <NavLink href="/" class="nav-link-mobile" Match="NavLinkMatch.All" @onclick="CloseMobileMenu">
+                        Home
+                    </NavLink>
+                    <NavLink href="/about" class="nav-link-mobile" @onclick="CloseMobileMenu">
+                        About
+                    </NavLink>
+                    <NavLink href="/contact" class="nav-link-mobile" @onclick="CloseMobileMenu">
+                        Contact
+                    </NavLink>
+                </div>
+            </div>
+        }
+    </div>
+</nav>
+
+<style>
+    .nav-link {
+        font-size: 1.125rem;
+        font-weight: 500;
+        color: #9ca3af;
+        transition: color 0.2s;
+        letter-spacing: 0.025em;
+    }
+
+    .nav-link:hover {
+        color: #ffffff;
+    }
+
+    .nav-link.active {
+        color: #ffffff;
+    }
+
+    .nav-link-mobile {
+        font-size: 1rem;
+        font-weight: 500;
+        color: #9ca3af;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        transition: color 0.2s;
+    }
+
+    .nav-link-mobile:hover {
+        color: #ffffff;
+    }
+
+    .nav-link-mobile.active {
+        color: #ffffff;
+    }
+
+    .w-6 {
+        width: 1.5rem;
+    }
+
+    .h-6 {
+        height: 1.5rem;
+    }
+</style>
+
+@code {
+    private bool mobileMenuOpen = false;
+
+    private void ToggleMobileMenu()
+    {
+        mobileMenuOpen = !mobileMenuOpen;
+    }
+
+    private void CloseMobileMenu()
+    {
+        mobileMenuOpen = false;
+    }
+}
+

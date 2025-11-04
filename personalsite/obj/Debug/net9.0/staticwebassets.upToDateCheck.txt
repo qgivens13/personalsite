@@ -1,0 +1,7 @@
+wwwroot\css\app.css
+wwwroot\css\site.css
+wwwroot\icon-192.png
+wwwroot\index.html
+C:\Users\qgg11\source\repos\personalsite\personalsite\wwwroot\css\app.css
+C:\Users\qgg11\source\repos\personalsite\personalsite\wwwroot\css\site.css
+C:\Users\qgg11\source\repos\personalsite\personalsite\wwwroot\index.html

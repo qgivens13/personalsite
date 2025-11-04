@@ -1,0 +1,313 @@
+@page "/about"
+@inject IJSRuntime JS
+
+<PageTitle>About - Quentin Givens</PageTitle>
+
+<section class="pt-12 pb-20 px-4">
+    <div class="container mx-auto max-w-6xl">
+        <!-- Page Header -->
+        <div class="mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tighter mb-4">
+                About Me
+            </h1>
+            <p class="text-xl text-gray-400">
+                Developer, designer, and technology enthusiast
+            </p>
+        </div>
+
+        <!-- About Content -->
+<div class="bg-dark-lighter border border-dark-border rounded-xl p-8 mb-8">
+    <div class="w-full">
+        <p class="text-lg text-gray-300 leading-relaxed mb-6 text-justify">
+            Hello! I'm Quentin Givens, a full-stack developer who loves building clean, 
+            high-impact software that solves real problems. I work primarily in 
+            <span class="font-medium text-white">C#, .NET, Blazor, and SQL</span>, 
+            and I have a strong focus on turning complex workflows into simple, 
+            intuitive user experiences.
+        </p>
+        <p class="text-lg text-gray-300 leading-relaxed mb-6 text-justify">
+            By day, I build internal applications in financial services — designing APIs, 
+            automating manual processes, and leading development efforts across teams. 
+            Outside of work, I'm building <span class="font-medium text-white">Daylete</span>, 
+            a fitness platform for tracking workouts, monthly challenges, and community competition. 
+            It's been a cool side project to learn about all of the minor details of getting a website to production.
+        </p>
+        <p class="text-lg text-gray-300 leading-relaxed mb-6 text-justify">
+            I enjoy working at the intersection of performance, design, and usability — whether that’s 
+            creating AI-powered document tools, optimizing SQL queries, or crafting interfaces inspired 
+            by products like Linear and Vercel. I care deeply about clean architecture, scalable code, 
+            and modern UI that feels effortless.
+        </p>
+    </div>
+</div>
+
+
+        <!-- Skills Section -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold mb-6">Technical Skills</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-dark-lighter border border-dark-border rounded-xl p-6">
+                    <h3 class="text-lg font-semibold mb-4 text-indigo-400">Frontend</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-dark border border-dark-border text-gray-300 text-sm rounded-md">Blazor</span>
+                        <span class="px-3 py-1 bg-dark border border-dark-border text-gray-300 text-sm rounded-md">TypeScript</span>
+                        <span class="px-3 py-1 bg-dark border border-dark-border text-gray-300 text-sm rounded-md">Tailwind CSS</span>
+                        <span class="px-3 py-1 bg-dark border border-dark-border text-gray-300 text-sm rounded-md">HTML/CSS</span>
+                    </div>
+                </div>
+
+                <div class="bg-dark-lighter border border-dark-border rounded-xl p-6">
+                    <h3 class="text-lg font-semibold mb-4 text-indigo-400">Backend</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-dark border border-dark-border text-gray-300 text-sm rounded-md">.NET</span>
+                        <span class="px-3 py-1 bg-dark border border-dark-border text-gray-300 text-sm rounded-md">C#</span>
+                        <span class="px-3 py-1 bg-dark border border-dark-border text-gray-300 text-sm rounded-md">Python</span>
+                        <span class="px-3 py-1 bg-dark border border-dark-border text-gray-300 text-sm rounded-md">SQL</span>
+                    </div>
+                </div>
+
+                <div class="bg-dark-lighter border border-dark-border rounded-xl p-6">
+                    <h3 class="text-lg font-semibold mb-4 text-indigo-400">Tools & DevOps</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-dark border border-dark-border text-gray-300 text-sm rounded-md">Git</span>
+                        <span class="px-3 py-1 bg-dark border border-dark-border text-gray-300 text-sm rounded-md">Docker</span>
+                        <span class="px-3 py-1 bg-dark border border-dark-border text-gray-300 text-sm rounded-md">Azure</span>
+                        <span class="px-3 py-1 bg-dark border border-dark-border text-gray-300 text-sm rounded-md">CI/CD</span>
+                        <span class="px-3 py-1 bg-dark border border-dark-border text-gray-300 text-sm rounded-md">Linux</span>
+                    </div>
+                </div>
+
+                <div class="bg-dark-lighter border border-dark-border rounded-xl p-6">
+                    <h3 class="text-lg font-semibold mb-4 text-indigo-400">Design</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-dark border border-dark-border text-gray-300 text-sm rounded-md">UI/UX Design</span>
+                        <span class="px-3 py-1 bg-dark border border-dark-border text-gray-300 text-sm rounded-md">Responsive Design</span>
+                        <span class="px-3 py-1 bg-dark border border-dark-border text-gray-300 text-sm rounded-md">Design Systems</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Experience Section -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold mb-6">Experience</h2>
+            <div class="bg-dark-lighter border border-dark-border rounded-xl p-8">
+                <p class="text-lg text-gray-300 leading-relaxed mb-6">
+                    This should be the section where I talk about my extensive work experience, 
+                    impressive career achievements, and professional accomplishments... but instead, 
+                    here's a button that does something cool.
+                </p>
+                <button @onclick="TriggerMatrixGlitch" 
+                        disabled="@isEffectActive"
+                        class="matrix-button">
+                    @if (isEffectActive)
+                    {
+                        <span>⚡ Glitching...</span>
+                    }
+                    else
+                    {
+                        <span>Do Something Cool</span>
+                    }
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Matrix Glitch Effect -->
+@if (isEffectActive)
+{
+    <div class="matrix-overlay">
+        <div class="glitch-layer"></div>
+        <div class="matrix-rain">
+            @for (int i = 0; i < 30; i++)
+            {
+                <div class="matrix-column" style="--col-index: @i">
+                    @{
+                        var chars = "01アイウエオカキクケコサシスセソタチツテト".ToCharArray();
+                        @foreach (var c in chars.Take(10))
+                        {
+                            <span>@c</span>
+                        }
+                    }
+                </div>
+            }
+        </div>
+    </div>
+}
+
+<style>
+    .space-y-6 > * + * {
+        margin-top: 1.5rem;
+    }
+
+    .prose {
+        max-width: 65ch;
+    }
+
+    /* Button Styles */
+    .matrix-button {
+        padding: 1rem 2rem;
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: white;
+        background: linear-gradient(135deg, #00ff41 0%, #00aa2e 100%);
+        border: none;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 255, 65, 0.4);
+    }
+
+    .matrix-button:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 255, 65, 0.6);
+    }
+
+    .matrix-button:active:not(:disabled) {
+        transform: translateY(0);
+    }
+
+    .matrix-button:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+
+    /* Matrix Glitch Effect */
+    .matrix-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 9999;
+        pointer-events: none;
+        background: rgba(0, 0, 0, 0.8);
+        animation: matrixFadeIn 0.3s ease-out;
+    }
+
+    .glitch-layer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: repeating-linear-gradient(
+            0deg,
+            rgba(0, 255, 65, 0.1) 0px,
+            transparent 2px,
+            transparent 4px
+        );
+        animation: glitchScan 0.1s infinite linear;
+    }
+
+    .matrix-rain {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .matrix-column {
+        display: flex;
+        flex-direction: column;
+        color: #00ff41;
+        font-family: 'Courier New', monospace;
+        font-size: 20px;
+        animation: matrixFall 2s linear infinite;
+        animation-delay: calc(var(--col-index) * -0.1s);
+        opacity: 0.8;
+        text-shadow: 0 0 8px #00ff41;
+    }
+
+    .matrix-column span {
+        margin: 5px 0;
+    }
+
+    @@keyframes matrixFadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @@keyframes glitchScan {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(100px); }
+    }
+
+    @@keyframes matrixFall {
+        0% {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+        10% {
+            opacity: 1;
+        }
+        90% {
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(100vh);
+            opacity: 0;
+        }
+    }
+
+    /* Add glitch effect to page content during matrix */
+    body.matrix-active section {
+        animation: contentGlitch 0.3s infinite;
+    }
+
+    @@keyframes contentGlitch {
+        0% {
+            transform: translate(0);
+            filter: hue-rotate(0deg);
+        }
+        20% {
+            transform: translate(-2px, 2px);
+            filter: hue-rotate(90deg);
+        }
+        40% {
+            transform: translate(-2px, -2px);
+            filter: hue-rotate(180deg);
+        }
+        60% {
+            transform: translate(2px, 2px);
+            filter: hue-rotate(270deg);
+        }
+        80% {
+            transform: translate(2px, -2px);
+            filter: hue-rotate(360deg);
+        }
+        100% {
+            transform: translate(0);
+            filter: hue-rotate(0deg);
+        }
+    }
+</style>
+
+@code {
+    private bool isEffectActive = false;
+
+    private async Task TriggerMatrixGlitch()
+    {
+        if (isEffectActive) return;
+
+        isEffectActive = true;
+        StateHasChanged();
+
+        // Add matrix class to body for content glitch effect
+        await JS.InvokeVoidAsync("eval", "document.body.classList.add('matrix-active')");
+
+        // Wait 5 seconds
+        await Task.Delay(5000);
+
+        // Remove effects
+        await JS.InvokeVoidAsync("eval", "document.body.classList.remove('matrix-active')");
+        
+        isEffectActive = false;
+        StateHasChanged();
+    }
+}
+

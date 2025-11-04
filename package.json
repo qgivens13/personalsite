@@ -1,0 +1,19 @@
+{
+  "name": "personalsite",
+  "version": "1.0.0",
+  "description": "Personal site built with Blazor WebAssembly and Tailwind CSS",
+  "scripts": {
+    "build:css": "npx tailwindcss -i ./personalsite/wwwroot/css/site.css -o ./personalsite/wwwroot/css/app.css --minify",
+    "watch:css": "npx tailwindcss -i ./personalsite/wwwroot/css/site.css -o ./personalsite/wwwroot/css/app.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.1",
+    "postcss": "^8.4.32",
+    "autoprefixer": "^10.4.16"
+  },
+  "main": "postcss.config.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
