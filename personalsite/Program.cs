@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using personalsite.Services;
 
 namespace personalsite
 {
@@ -12,6 +13,9 @@ namespace personalsite
             builder.RootComponents.Add<HeadOutlet>("head::after");
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+            
+            // Register Dadboard service
+            builder.Services.AddScoped<IDadboardService, DadboardService>();
 
             await builder.Build().RunAsync();
         }

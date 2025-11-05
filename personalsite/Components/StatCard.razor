@@ -1,0 +1,62 @@
+@inject IJSRuntime JS
+
+<div class="stat-card bg-[#2A2A2A] border border-[#3A3A3A] rounded-lg p-6 hover:border-[#4A4A4A] transition-all duration-300 shadow-sm hover:shadow-md">
+    <div class="flex items-start justify-between mb-4">
+        <div class="text-3xl">@Icon</div>
+        <div class="flex items-center gap-1 text-xs px-2 py-1 rounded-full @TrendColorClass">
+            <span>@TrendLabel</span>
+        </div>
+    </div>
+    
+    <div class="space-y-2">
+        <h3 class="text-sm font-medium text-gray-400">@Title</h3>
+        <div class="flex items-baseline gap-2">
+            <span class="text-3xl font-bold text-white counter" data-target="@Value">0</span>
+            <span class="text-sm text-gray-500">@Unit</span>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string Title { get; set; } = string.Empty;
+    
+    [Parameter]
+    public int Value { get; set; }
+    
+    [Parameter]
+    public string Unit { get; set; } = string.Empty;
+    
+    [Parameter]
+    public string Icon { get; set; } = string.Empty;
+    
+    [Parameter]
+    public string Trend { get; set; } = string.Empty;
+    
+    [Parameter]
+    public string TrendLabel { get; set; } = string.Empty;
+
+    private string TrendColorClass => Trend.ToLower() == "up" 
+        ? "bg-indigo-500/10 text-indigo-400" 
+        : "bg-emerald-500/10 text-emerald-400";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await AnimateCounter();
+        }
+    }
+
+    private async Task AnimateCounter()
+    {
+        await JS.InvokeVoidAsync("animateCounter", Value);
+    }
+}
+
+<style>
+    .stat-card {
+        background: linear-gradient(135deg, rgba(42, 42, 42, 0.9) 0%, rgba(42, 42, 42, 1) 100%);
+    }
+</style>
+
