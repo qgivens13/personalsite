@@ -1,0 +1,229 @@
+@using personalsite.Models
+
+<div class="bg-[#2A2A2A] border border-[#3A3A3A] rounded-lg p-6 shadow-sm">
+    <h3 class="text-lg font-semibold text-white mb-6">@Title</h3>
+    
+    <div class="relative" style="height: 300px;">
+        <svg viewBox="0 0 800 300" class="w-full h-full" preserveAspectRatio="xMidYMid meet">
+            <!-- Grid lines -->
+            @for (int i = 0; i <= 4; i++)
+            {
+                var y = 40 + (i * 52);
+                <line 
+                    x1="60" 
+                    y1="@y" 
+                    x2="780" 
+                    y2="@y" 
+                    stroke="#3A3A3A" 
+                    stroke-width="1" 
+                    stroke-dasharray="4,4"
+                />
+                @:<text x="45" y="@(y + 4)" fill="#6B7280" font-size="12" text-anchor="end">@((MaxValue - (i * MaxValue / 4)).ToString("F1"))</text>
+            }
+
+            <!-- Line path -->
+            <path 
+                d="@PathData" 
+                fill="none" 
+                stroke="#6366F1" 
+                stroke-width="3" 
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="line-path"
+            />
+
+            <!-- Area fill -->
+            <path 
+                d="@AreaPathData" 
+                fill="url(#gradient)" 
+                opacity="0.2"
+                class="area-path"
+            />
+
+            <!-- Data points -->
+            @for (int i = 0; i < DataPoints.Count; i++)
+            {
+                var point = DataPoints[i];
+                var x = 60 + (i * PointSpacing);
+                var y = 40 + (248 - ((point.Hours / MaxValue) * 248));
+                
+                <circle 
+                    cx="@x" 
+                    cy="@y" 
+                    r="4" 
+                    fill="#6366F1" 
+                    class="data-point"
+                />
+                
+                <circle 
+                    cx="@x" 
+                    cy="@y" 
+                    r="8" 
+                    fill="#6366F1" 
+                    opacity="0"
+                    class="data-point-hover"
+                    @onmouseover="() => ShowTooltip(i, x, y)"
+                    @onmouseout="HideTooltip"
+                />
+            }
+
+            <!-- X-axis labels -->
+            @for (int i = 0; i < DataPoints.Count; i++)
+            {
+                if (i % 2 == 0 || DataPoints.Count <= 7) // Show every label if <= 7 points, otherwise every other
+                {
+                    var point = DataPoints[i];
+                    var x = 60 + (i * PointSpacing);
+                    @:<text x="@x" y="298" fill="#6B7280" font-size="11" text-anchor="middle">@point.Date</text>
+                }
+            }
+
+            <!-- Gradient definition -->
+            <defs>
+                <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" style="stop-color:#6366F1;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#6366F1;stop-opacity:0" />
+                </linearGradient>
+            </defs>
+        </svg>
+
+        <!-- Tooltip -->
+        @if (showTooltip && tooltipIndex >= 0 && tooltipIndex < DataPoints.Count)
+        {
+            <div 
+                class="absolute bg-[#1A1A1A] border border-[#3A3A3A] rounded-lg px-3 py-2 shadow-lg pointer-events-none z-10"
+                style="left: @(tooltipX)px; top: @(tooltipY - 60)px; transform: translateX(-50%);"
+            >
+                <div class="text-xs text-gray-400">@DataPoints[tooltipIndex].Date</div>
+                <div class="text-lg font-bold text-white">@DataPoints[tooltipIndex].Hours hrs</div>
+            </div>
+        }
+    </div>
+
+    <!-- Summary Stats -->
+    <div class="mt-6 grid grid-cols-3 gap-4">
+        <div class="text-center">
+            <div class="text-xs text-gray-400 mb-1">Average</div>
+            <div class="text-lg font-semibold text-white">@AverageValue hrs</div>
+        </div>
+        <div class="text-center">
+            <div class="text-xs text-gray-400 mb-1">Minimum</div>
+            <div class="text-lg font-semibold text-red-400">@MinValue hrs</div>
+        </div>
+        <div class="text-center">
+            <div class="text-xs text-gray-400 mb-1">Maximum</div>
+            <div class="text-lg font-semibold text-emerald-400">@MaxValue hrs</div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string Title { get; set; } = "Chart";
+    
+    [Parameter]
+    public List<SleepDataPoint> DataPoints { get; set; } = new();
+
+    private bool showTooltip = false;
+    private int tooltipIndex = 0;
+    private double tooltipX = 0;
+    private double tooltipY = 0;
+
+    private double MaxValue => DataPoints.Any() ? Math.Ceiling(DataPoints.Max(p => p.Hours)) : 8;
+    private double MinValue => DataPoints.Any() ? Math.Round(DataPoints.Min(p => p.Hours), 1) : 0;
+    private string AverageValue => DataPoints.Any() ? Math.Round(DataPoints.Average(p => p.Hours), 1).ToString("F1") : "0.0";
+    
+    private double PointSpacing => DataPoints.Count > 1 ? 720.0 / (DataPoints.Count - 1) : 0;
+
+    private string PathData
+    {
+        get
+        {
+            if (!DataPoints.Any()) return "";
+            
+            var points = new List<string>();
+            for (int i = 0; i < DataPoints.Count; i++)
+            {
+                var x = 60 + (i * PointSpacing);
+                var y = 40 + (248 - ((DataPoints[i].Hours / MaxValue) * 248));
+                points.Add($"{(i == 0 ? "M" : "L")} {x} {y}");
+            }
+            return string.Join(" ", points);
+        }
+    }
+
+    private string AreaPathData
+    {
+        get
+        {
+            if (!DataPoints.Any()) return "";
+            
+            var path = PathData;
+            var lastX = 60 + ((DataPoints.Count - 1) * PointSpacing);
+            return $"{path} L {lastX} 288 L 60 288 Z";
+        }
+    }
+
+    private void ShowTooltip(int index, double x, double y)
+    {
+        if (index >= 0 && index < DataPoints.Count)
+        {
+            showTooltip = true;
+            tooltipIndex = index;
+            tooltipX = x;
+            tooltipY = y;
+        }
+    }
+
+    private void HideTooltip()
+    {
+        showTooltip = false;
+    }
+}
+
+<style>
+    .line-path, .area-path {
+        animation: drawLine 1.5s ease-out forwards;
+    }
+
+    .data-point {
+        animation: fadeIn 0.5s ease-out forwards;
+        opacity: 0;
+    }
+
+    .data-point:nth-child(n) {
+        animation-delay: calc(0.1s * var(--index));
+    }
+
+    .data-point-hover {
+        cursor: pointer;
+        transition: opacity 0.2s ease;
+    }
+
+    .data-point-hover:hover {
+        opacity: 0.2 !important;
+    }
+
+    @@keyframes drawLine {
+        from {
+            stroke-dasharray: 2000;
+            stroke-dashoffset: 2000;
+        }
+        to {
+            stroke-dasharray: 2000;
+            stroke-dashoffset: 0;
+        }
+    }
+
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+</style>
+
